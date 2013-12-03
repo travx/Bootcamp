@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+      "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title></title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <link rel="stylesheet" type="text/css" href="default.css">
+</head>
+
+<body>
+
+<div id="upbg">
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<div id="headercontent">
+<h1>Bootcamp Project <sup></sup></h1>
+
+<h2>By Travis Price</h2>
+</div>
+</div>
+
+<form method="post" action="SolrServlet">
+
+  <div id="search">
+  <input type="text" class="text" maxlength="64" name="search"> 
+  <input type="submit" value="Search" class="submit"> </div>
+</form>
+
+<div id="headerpic">
+</div>
+
+<div id="menu">
+<!-- HINT: Set the class of any menu link below to "active" to make it appear active -->
+<ul>
+  <li><a href="index.html">Overview</a></li>
+  <li><a href="http://172.16.232.129:8888/opscenter/index.html">OpsCenter</a></li>
+  <li><a href="cassandra.html">Cassandra</a></li>
+  <li><a href="#hadoop" class="active">Hadoop</a></li>
+  <li><a href="http://localhost:8080/WebApp/SolrServlet">Solr</a></li>
+</ul>
+</div>
+
+<div id="menubottom">
+</div>
+
+<div id="content">
+<!-- Normal content: Stuff that's not going to be put in the left or right column. -->
+
+<div id="normalcontent">
+<h3><strong>hiveaffinity.q</strong></h3>
+
+<div class="contentarea">
+<!-- Normal content area start -->
+
+<p>use store;</p>
+
+<p>&nbsp;</p>
+
+<p>DROP TABLE IF EXISTS h_user_products;</p>
+
+<p>CREATE TABLE h_user_products(</p>
+
+<p>user_id string,</p>
+
+<p>product_id string)</p>
+
+<p>STORED AS SEQUENCEFILE;</p>
+
+<p>&nbsp;</p>
+
+<p>INSERT OVERWRITE TABLE h_user_products</p>
+
+<p>select user_id, product_id from user_products;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>DROP TABLE IF EXISTS h_product_summary;</p>
+
+<p>CREATE TABLE h_product_summary(</p>
+
+<p>product_id string,</p>
+
+<p>orders int)</p>
+
+<p>STORED AS SEQUENCEFILE;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>INSERT OVERWRITE TABLE h_product_summary</p>
+
+<p>select product_id, count(*) from orderstream group by product_id;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>DROP TABLE IF EXISTS h_product_map;</p>
+
+<p>CREATE TABLE h_product_map(</p>
+
+<p>product1 string,</p>
+
+<p>product2 string,</p>
+
+<p>csupport int)</p>
+
+<p>STORED AS SEQUENCEFILE;</p>
+
+<p>&nbsp;</p>
+
+<p>INSERT OVERWRITE TABLE h_product_map</p>
+
+<p>select up1.product_id, up2.product_id, count(*)</p>
+
+<p>from h_user_products up1</p>
+
+<p>join h_user_products up2</p>
+
+<p>on up1.user_id = up2.user_id</p>
+
+<p>where up1.product_id &lt;&gt; up2.product_id</p>
+
+<p>group by up1.product_id, up2.product_id;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>DROP TABLE IF EXISTS product_affinity;</p>
+
+<p>CREATE TABLE product_affinity(</p>
+
+<p>product1 string,</p>
+
+<p>product2 string,</p>
+
+<p>p1support int,</p>
+
+<p>p2support int,</p>
+
+<p>csupport int,</p>
+
+<p>lift double)</p>
+
+<p>STORED AS SEQUENCEFILE;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>INSERT OVERWRITE TABLE product_affinity</p>
+
+<p>select pm.product1, pm.product2, ps1.orders, ps2.orders, pm.csupport,
+pm.csupport/ps2.orders</p>
+
+<p>from h_product_map pm</p>
+
+<p>join h_product_summary ps1</p>
+
+<p>on pm.product1 = ps1.product_id</p>
+
+<p>join h_product_summary ps2</p>
+
+<p>on pm.product2 = ps2.product_id;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>INSERT OVERWRITE TABLE suggested_product</p>
+
+<p>select pa.product1, pa.product2 from product_affinity pa</p>
+
+<p>join (select product1, max(lift) as lift from product_affinity group by
+product1) pl</p>
+
+<p>on pa.product1 = pl.product1</p>
+
+<p>and pa.lift = pl.lift;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<!-- Normal content area end -->
+</div>
+</div>
+</div>
+
+<div id="footer">
+
+<div class="right">
+Travis Price</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <title></title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="default.css" />
+</head>
+
+<body>
+
+<div id="upbg">
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<div id="headercontent">
+<h1>Bootcamp Project <sup></sup></h1>
+
+<h2>By Travis Price</h2>
+</div>
+</div>
+
+<form method="post" action="">
+
+  <div id="search">
+  <input type="text" class="text" maxlength="64" name="keywords" /> 
+  <input type="submit" value="Search" class="submit" /> </div>
+</form>
+
+<div id="headerpic">
+</div>
+
+<div id="menu">
+<!-- HINT: Set the class of any menu link below to "active" to make it appear active -->
+<ul>
+  <li><a href="index.html">Overview</a></li>
+  <li><a href="http://172.16.232.129:8888/opscenter/index.html">OpsCenter</a></li>
+  <li><a href="cassandra.html" class="active">Cassandra</a></li>
+  <li><a href="#hadoop">Hadoop</a></li>
+  <li><a href="http://localhost:8080/WebApp/SolrServlet">Solr</a></li>
+</ul>
+</div>
+
+<div id="menubottom">
+</div>
+
+<div id="content">
+<!-- Normal content: Stuff that's not going to be put in the left or right column. -->
+
+<div id="normalcontent">
+<h3><strong>Create.cql</strong></h3>
+
+<div class="contentarea">
+<!-- Normal content area start -->
+
+<p>This script drops and recreates the basic tables for my project. Included
+are additional tables populated from hive and a suggested_product table. The
+suggested product table is populated based on hiveaffinity.q</p>
+
+<p>&nbsp;</p>
+
+<p>drop table account;</p>
+
+<p>drop table user;</p>
+
+<p>drop table orderstream;</p>
+
+<p>drop table product;</p>
+
+<p>&nbsp;</p>
+
+<p>drop table recommendations;</p>
+
+<p>drop table vendor_recommendations;</p>
+
+<p>drop table vendor_recommendation_summary;</p>
+
+<p>drop table recommendation_summary;</p>
+
+<p>drop table recommendation_summary_hive;</p>
+
+<p>&nbsp;</p>
+
+<p>drop table moving_average;</p>
+
+<p>&nbsp;</p>
+
+<p>drop table suggested_product;</p>
+
+<p>&nbsp;</p>
+
+<p>drop table hr_products;</p>
+
+<p>drop table vendor_hr_products;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=account">Account Table</a></p>
+
+<p>create table account(</p>
+
+<p>account_id varchar primary key,</p>
+
+<p>user_id varchar,</p>
+
+<p>balance decimal</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=user">User Table</a></p>
+
+
+<p>create table user(</p>
+
+<p>user_id varchar primary key,</p>
+
+<p>first_name varchar,</p>
+
+<p>middle_name varchar,</p>
+
+<p>last_name varchar,</p>
+
+<p>date_of_birth varchar,</p>
+
+<p>address varchar,</p>
+
+<p>zip_code varchar,</p>
+
+<p>city_name varchar,</p>
+
+<p>state_name varchar,</p>
+
+<p>gender varchar,</p>
+
+<p>phone_number varchar,</p>
+
+<p>email varchar,</p>
+
+<p>country_code varchar</p>
+
+<p>) WITH COMPACT STORAGE;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=orderstream">Orderstream Table</a></p>
+
+<p>create table orderstream(</p>
+
+<p>order_id varchar primary key,</p>
+
+<p>user_id varchar,</p>
+
+<p>product_id varchar,</p>
+
+<p>quantity decimal,</p>
+
+<p>order_time timestamp,</p>
+
+<p>suggested_product_id varchar</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=product">Product Table</a></p>
+
+<p>create table product(</p>
+
+<p>product_name varchar,</p>
+
+<p>unit_price decimal,</p>
+
+<p>vendor varchar,</p>
+
+<p>rating varchar,</p>
+
+<p>product_id varchar primary key,</p>
+
+<p>recommendation varchar,</p>
+
+<p>attributes set&lt;varchar&gt;</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=recommendations">Recommendations Table</a></p>
+
+<p>create table recommendations(</p>
+
+<p>recommendation varchar,</p>
+
+<p>product_id varchar,</p>
+
+<p>primary key (recommendation, product_id)</p>
+
+<p>&nbsp;</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=vendor_recommendations">Vedndor Recommendations Table</a></p>
+
+<p>create table vendor_recommendations(</p>
+
+<p>recommendation varchar,</p>
+
+<p>vendor varchar,</p>
+
+<p>product_id varchar,</p>
+
+<p>primary key (recommendation, vendor, product_id)</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=vendor_recommendation_summary">Vendor Recommendation Summary Table</a></p>
+
+
+<p>create table vendor_recommendation_summary(</p>
+
+<p>recommendation varchar,</p>
+
+<p>vendor varchar,</p>
+
+<p>num_products counter,</p>
+
+<p>primary key (vendor, recommendation)</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=recommendation_summary">Recommendation Summary Table</a></p>
+
+
+<p>create table recommendation_summary(</p>
+
+<p>recommendation varchar primary key,</p>
+
+<p>num_products counter</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=recommendation_summary_hive">Recommendation Summary Hive Table</a></p>
+
+
+<p>create table recommendation_summary_hive(</p>
+
+<p>recommendation varchar primary key,</p>
+
+<p>num_products bigint</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=moving_average">Moving Average Table</a></p>
+
+<p>create table moving_average(</p>
+
+<p>order_date_hours int primary key,</p>
+
+<p>hourly_total double,</p>
+
+<p>moving_average double</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=suggested_product">Suggested Product Table</a></p>
+
+<p>CREATE TABLE suggested_product (</p>
+
+<p>product_id text PRIMARY KEY,</p>
+
+<p>suggested_product_id text</p>
+
+<p>);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=hr_products">Highly Recommended Products Table</a></p>
+
+<p>CREATE TABLE hr_products(</p>
+
+<p>recommendation text,</p>
+
+<p>product_id text,</p>
+
+<p>orders int,</p>
+
+<p>product_name text,</p>
+
+<p>primary key (recommendation, orders, product_id)</p>
+
+<p>) with clustering order by (orders desc);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p><a href="http://localhost:8080/WebApp/PerformanceServlet?ks=store&cf=vendor_hr_products">Vendor Highly Recommended Products Table</a></p>
+
+<p>CREATE TABLE vendor_hr_products(</p>
+
+<p>vendor text,</p>
+
+<p>product_id text,</p>
+
+<p>orders int,</p>
+
+<p>product_name text,</p>
+
+<p>primary key (vendor, orders, product_id)</p>
+
+<p>) with clustering order by (orders desc);</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>copy store.account(account_id, user_id, balance) from
+'account_list_final.csv';</p>
+
+<p>&nbsp;</p>
+
+<p>copy store.user(user_id, first_name, middle_name, last_name, date_of_birth,
+address, zip_code, city_name, state_name, gender, phone_number, email,
+country_code) from 'user_list_final.csv';</p>
+
+<p>&nbsp;</p>
+
+<p>copy store.suggested_product from 'suggested_product.csv';</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<!-- Normal content area end -->
+</div>
+</div>
+</div>
+
+<div id="footer">
+
+<div class="right">
+<a href="mailto:tprice@datastax.com">Travis Price</a></div>
+</div>
+</div>
+</body>
+</html>

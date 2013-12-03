@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+      "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title></title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <link rel="stylesheet" type="text/css" href="default.css">
+</head>
+
+<body>
+
+<div id="upbg">
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<div id="headercontent">
+<h1>Bootcamp Project <sup></sup></h1>
+
+<h2>By Travis Price</h2>
+</div>
+</div>
+
+<form method="post" action="SolrServlet">
+
+  <div id="search">
+  <input type="text" class="text" maxlength="64" name="search"> 
+  <input type="submit" value="Search" class="submit"> </div>
+</form>
+
+<div id="headerpic">
+</div>
+
+<div id="menu">
+<!-- HINT: Set the class of any menu link below to "active" to make it appear active -->
+<ul>
+  <li><a href="index.html">Overview</a></li>
+  <li><a href="http://172.16.232.129:8888/opscenter/index.html">OpsCenter</a></li>
+  <li><a href="cassandra.html" >Cassandra</a></li>
+  <li><a href="#hadoop">Hadoop</a></li>
+  <li><a href="http://localhost:8080/WebApp/SolrServlet" class="active">Solr</a></li>
+</ul>
+</div>
+
+<div id="menubottom">
+</div>
+
+<div id="content">
+<!-- Normal content: Stuff that's not going to be put in the left or right column. -->
+
+<div id="normalcontent">
+<h3><strong>schema.xml</strong></h3>
+
+<p><a href="http://172.16.232.131:8983/solr/#/store.user/schema">Schema in Solr Admin</a></p>
+
+
+<div class="contentarea">
+<!-- Normal content area start -->
+
+<p>&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;!--</p>
+
+<p>&nbsp;</p>
+
+<p>Licensed to the Apache Software Foundation (ASF) under one or more</p>
+
+<p>&nbsp;</p>
+
+<p>contributor license agreements. See the NOTICE file distributed with</p>
+
+<p>&nbsp;</p>
+
+<p>this work for additional information regarding copyright ownership.</p>
+
+<p>&nbsp;</p>
+
+<p>The ASF licenses this file to You under the Apache License, Version 2.0</p>
+
+<p>&nbsp;</p>
+
+<p>(the "License"); you may not use this file except in compliance with</p>
+
+<p>&nbsp;</p>
+
+<p>the License. You may obtain a copy of the License at</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>http://www.apache.org/licenses/LICENSE-2.0</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>Unless required by applicable law or agreed to in writing, software</p>
+
+<p>&nbsp;</p>
+
+<p>distributed under the License is distributed on an "AS IS" BASIS,</p>
+
+<p>&nbsp;</p>
+
+<p>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</p>
+
+<p>&nbsp;</p>
+
+<p>See the License for the specific language governing permissions and</p>
+
+<p>&nbsp;</p>
+
+<p>limitations under the License.</p>
+
+<p>&nbsp;</p>
+
+<p>--&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;schema name="solr_quickstart" version="1.1"&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;types&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;fieldType name="string" class="solr.StrField"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;fieldType name="text" class="solr.TextField"&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;analyzer&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;tokenizer class="solr.NGramTokenizerFactory" minGramSize="1"
+maxGramSize="1"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;filter class="solr.LowerCaseFilterFactory"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/analyzer&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/fieldType&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;fieldType name="int" class="solr.TrieIntField"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/types&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;fields&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="user_id" type="string" indexed="true" stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="first_name" type="string" indexed="true"
+stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="middle_name" type="string" indexed="true"
+stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="last_name" type="string" indexed="true"
+stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="date_of_birth" type="string" indexed="true"
+stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="address" type="string" indexed="true" stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="zip_code" type="string" indexed="true" stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="city_name" type="string" indexed="true"
+stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="state_name" type="string" indexed="true"
+stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="gender" type="string" indexed="true" stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="phone_number" type="string" indexed="true"
+stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="email" type="string" indexed="true" stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="country_code" type="string" indexed="true"
+stored="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="name" type="string" docValues="true" indexed="true"
+stored="false" multiValued="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;field name="full_address" type="text" indexed="true" stored="false"
+multiValued="true"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/fields&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;defaultSearchField&gt;last_name&lt;/defaultSearchField&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;uniqueKey&gt;user_id&lt;/uniqueKey&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;copyField source="first_name" dest="name"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;copyField source="middle_name" dest="name"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;copyField source="last_name" dest="name"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;copyField source="address" dest="full_address"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;copyField source="city_name" dest="full_address"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;copyField source="state_name" dest="full_address"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;copyField source="zip_code" dest="full_address"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;copyField source="country_code" dest="full_address"/&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/schema&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<!-- Normal content area end -->
+</div>
+</div>
+</div>
+
+<div id="footer">
+
+<div class="right">
+Travis Price</div>
+</div>
+</div>
+</body>
+</html>

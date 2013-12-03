@@ -1,0 +1,991 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+      "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <title></title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <link rel="stylesheet" type="text/css" href="default.css">
+</head>
+
+<body>
+
+<div id="upbg">
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<div id="headercontent">
+<h1>Bootcamp Project <sup></sup></h1>
+
+<h2>By Travis Price</h2>
+</div>
+</div>
+
+<form method="post" action="SolrServlet">
+
+  <div id="search">
+  <input type="text" class="text" maxlength="64" name="search"> 
+  <input type="submit" value="Search" class="submit"> </div>
+</form>
+
+<div id="headerpic">
+</div>
+
+<div id="menu">
+<!-- HINT: Set the class of any menu link below to "active" to make it appear active -->
+<ul>
+  <li><a href="index.html">Overview</a></li>
+  <li><a
+  href="http://172.16.232.129:8888/opscenter/index.html">OpsCenter</a></li>
+  <li><a href="cassandra.html" class="active">Cassandra</a></li>
+  <li><a href="#hadoop">Hadoop</a></li>
+  <li><a href="http://localhost:8080/WebApp/SolrServlet">Solr</a></li>
+</ul>
+</div>
+
+<div id="menubottom">
+</div>
+
+<div id="content">
+<!-- Normal content: Stuff that's not going to be put in the left or right column. -->
+
+<div id="normalcontent">
+<h3><strong>desc keyspace store;</strong></h3>
+
+<p>&nbsp;</p>
+
+<div class="contentarea">
+<!-- Normal content area start -->
+
+<p>CREATE KEYSPACE store WITH replication = {</p>
+
+<p>'class': 'NetworkTopologyStrategy',</p>
+
+<p>'Analytics': '1',</p>
+
+<p>'Solr': '1',</p>
+
+<p>'Cassandra': '1'</p>
+
+<p>};</p>
+
+<p>&nbsp;</p>
+
+<p>USE store;</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE account (</p>
+
+<p>account_id text PRIMARY KEY,</p>
+
+<p>balance decimal,</p>
+
+<p>user_id text</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE hr_products (</p>
+
+<p>recommendation text,</p>
+
+<p>orders int,</p>
+
+<p>product_id text,</p>
+
+<p>product_name text,</p>
+
+<p>PRIMARY KEY (recommendation, orders, product_id)</p>
+
+<p>) WITH CLUSTERING ORDER BY (orders DESC, product_id ASC) AND</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE moving_average (</p>
+
+<p>order_date_hours int PRIMARY KEY,</p>
+
+<p>hourly_total double,</p>
+
+<p>moving_average double</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE orderstream (</p>
+
+<p>order_id text PRIMARY KEY,</p>
+
+<p>order_time timestamp,</p>
+
+<p>product_id text,</p>
+
+<p>quantity decimal,</p>
+
+<p>suggested_product_id text,</p>
+
+<p>user_id text</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE product (</p>
+
+<p>product_id text PRIMARY KEY,</p>
+
+<p>attributes set&lt;text&gt;,</p>
+
+<p>product_name text,</p>
+
+<p>rating text,</p>
+
+<p>recommendation text,</p>
+
+<p>unit_price decimal,</p>
+
+<p>vendor text</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE product_state (</p>
+
+<p>product_id text,</p>
+
+<p>state_name text,</p>
+
+<p>quantity counter,</p>
+
+<p>PRIMARY KEY (product_id, state_name)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE product_summary (</p>
+
+<p>product_id text PRIMARY KEY,</p>
+
+<p>orders counter</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE product_users (</p>
+
+<p>product_id text,</p>
+
+<p>user_id text,</p>
+
+<p>quantity counter,</p>
+
+<p>PRIMARY KEY (product_id, user_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE recommendation_summary (</p>
+
+<p>recommendation text PRIMARY KEY,</p>
+
+<p>num_products counter</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE recommendation_summary_hive (</p>
+
+<p>recommendation text PRIMARY KEY,</p>
+
+<p>num_products bigint</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE recommendations (</p>
+
+<p>recommendation text,</p>
+
+<p>product_id text,</p>
+
+<p>PRIMARY KEY (recommendation, product_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE suggested_product (</p>
+
+<p>product_id text PRIMARY KEY,</p>
+
+<p>suggested_product_id text</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE time_orders (</p>
+
+<p>order_date timestamp,</p>
+
+<p>order_seconds int,</p>
+
+<p>order_id text,</p>
+
+<p>order_amt double,</p>
+
+<p>order_date_hours int,</p>
+
+<p>order_date_str text,</p>
+
+<p>PRIMARY KEY (order_date, order_seconds, order_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE time_summary (</p>
+
+<p>order_date timestamp PRIMARY KEY,</p>
+
+<p>orders counter</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE user (</p>
+
+<p>user_id text PRIMARY KEY,</p>
+
+<p>"_docBoost" text,</p>
+
+<p>address text,</p>
+
+<p>city_name text,</p>
+
+<p>country_code text,</p>
+
+<p>date_of_birth text,</p>
+
+<p>email text,</p>
+
+<p>first_name text,</p>
+
+<p>full_address text,</p>
+
+<p>gender text,</p>
+
+<p>last_name text,</p>
+
+<p>middle_name text,</p>
+
+<p>name text,</p>
+
+<p>phone_number text,</p>
+
+<p>solr_query text,</p>
+
+<p>state_name text,</p>
+
+<p>zip_code text</p>
+
+<p>) WITH COMPACT STORAGE AND</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user__docBoost_index ON user ("_docBoost");</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_address_index ON user (address);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_city_name_index ON user (city_name);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_country_code_index ON user (country_code);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_date_of_birth_index ON user (date_of_birth);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_email_index ON user (email);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_first_name_index ON user (first_name);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_full_address_index ON user (full_address);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_gender_index ON user (gender);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_last_name_index ON user (last_name);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_middle_name_index ON user (middle_name);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_name_index ON user (name);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_phone_number_index ON user (phone_number);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_solr_query_index ON user (solr_query);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_state_name_index ON user (state_name);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE INDEX store_user_zip_code_index ON user (zip_code);</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE user_orders (</p>
+
+<p>user_id text,</p>
+
+<p>order_id text,</p>
+
+<p>product_id text,</p>
+
+<p>order_time timestamp,</p>
+
+<p>product_attributes text,</p>
+
+<p>product_name text,</p>
+
+<p>quantity int,</p>
+
+<p>recommendation text,</p>
+
+<p>unit_price double,</p>
+
+<p>vendor text,</p>
+
+<p>PRIMARY KEY (user_id, order_id, product_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE user_products (</p>
+
+<p>user_id text,</p>
+
+<p>product_id text,</p>
+
+<p>orders counter,</p>
+
+<p>PRIMARY KEY (user_id, product_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE user_time_orders (</p>
+
+<p>user_id text,</p>
+
+<p>order_date timestamp,</p>
+
+<p>order_seconds int,</p>
+
+<p>order_id text,</p>
+
+<p>order_amt double,</p>
+
+<p>PRIMARY KEY (user_id, order_date, order_seconds, order_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE vendor_hr_products (</p>
+
+<p>vendor text,</p>
+
+<p>orders int,</p>
+
+<p>product_id text,</p>
+
+<p>product_name text,</p>
+
+<p>PRIMARY KEY (vendor, orders, product_id)</p>
+
+<p>) WITH CLUSTERING ORDER BY (orders DESC, product_id ASC) AND</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE vendor_orders (</p>
+
+<p>vendor text,</p>
+
+<p>order_id text,</p>
+
+<p>product_id text,</p>
+
+<p>order_time timestamp,</p>
+
+<p>product_attributes text,</p>
+
+<p>product_name text,</p>
+
+<p>quantity int,</p>
+
+<p>recommendation text,</p>
+
+<p>unit_price double,</p>
+
+<p>PRIMARY KEY (vendor, order_id, product_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE vendor_recommendation_summary (</p>
+
+<p>vendor text,</p>
+
+<p>recommendation text,</p>
+
+<p>num_products counter,</p>
+
+<p>PRIMARY KEY (vendor, recommendation)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE vendor_recommendations (</p>
+
+<p>recommendation text,</p>
+
+<p>vendor text,</p>
+
+<p>product_id text,</p>
+
+<p>PRIMARY KEY (recommendation, vendor, product_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>CREATE TABLE vendor_users (</p>
+
+<p>vendor text,</p>
+
+<p>user_id text,</p>
+
+<p>orders counter,</p>
+
+<p>PRIMARY KEY (vendor, user_id)</p>
+
+<p>) WITH</p>
+
+<p>bloom_filter_fp_chance=0.010000 AND</p>
+
+<p>caching='KEYS_ONLY' AND</p>
+
+<p>comment='' AND</p>
+
+<p>dclocal_read_repair_chance=0.000000 AND</p>
+
+<p>gc_grace_seconds=864000 AND</p>
+
+<p>read_repair_chance=0.100000 AND</p>
+
+<p>replicate_on_write='true' AND</p>
+
+<p>populate_io_cache_on_flush='false' AND</p>
+
+<p>compaction={'class': 'SizeTieredCompactionStrategy'} AND</p>
+
+<p>compression={'sstable_compression': 'SnappyCompressor'};</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+<!-- Normal content area end -->
+</div>
+</div>
+</div>
+
+<div id="footer">
+
+<div class="right">
+Travis Price</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
+  <title>Bootcamp Project</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <link rel="stylesheet" type="text/css" href="default.css" />
+    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.0/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="scripts/jchartfx/js/jchartfx.system.js"></script>
+    <script type="text/javascript" src="scripts/jchartfx/js/jchartfx.coreVector.js"></script>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://codeorigin.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+  
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
+    
+</head>
+
+<body>
+
+<div id="upbg">
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<div id="headercontent">
+<h1>Bootcamp Project <sup></sup></h1>
+
+<h2>By Travis Price</h2>
+</div>
+</div>
+
+<form method="post" action="SolrServlet">
+
+  <div id="search">
+  <input type="text" class="text" maxlength="64" name="search" /> 
+  <input type="submit" value="Search" class="submit" /> </div>
+</form>
+
+<div id="headerpic">
+</div>
+
+<div id="menu">
+<!-- HINT: Set the class of any menu link below to "active" to make it appear active -->
+<ul>
+  <li><a href="index.html" class="active">Overview</a></li>
+  <li><a href="http://172.16.232.129:8888/opscenter/index.html">OpsCenter</a></li>
+  <li><a href="cassandra.html">Cassandra</a></li>
+  <li><a href="#hadoop">Hadoop</a></li>
+  <li><a href="http://localhost:8080/WebApp/SolrServlet">Solr</a></li>
+</ul>
+</div>
+
+<div id="menubottom">
+</div>
+
+<div id="content">
+<!-- Normal content: Stuff that's not going to be put in the left or right column. -->
+
+<div id="normalcontent">
+<h3><strong>Project Description</strong></h3>
+
+<div class="contentarea">
+<!-- Normal content area start -->
+<img src="images/datastax_logo.png" class="left" alt="DataStax" /> 
+
+<p>For this project, I configured three virtual nodes based on Debian Squeeze (Debian 6.0). Each image is managed using VMWare Fusion.</p>
+<ul>
+	<li>Debian1 - Dedicted to Cassandra only</li>
+	<li>Debian2 - Dedicated to Analytics Hadoop/Hive</li>
+	<li>Debian3 - Dedicated to Solr/Enterprise Search</li>
+</ul>	
+<p></p>
+<p><a href="http://172.16.232.129:8888/opscenter/index.html">OpsCenter</a></p>
+<p></p>
+<!-- Normal content area end -->
+</div>
+</div>
+
+<div class="divider1">
+</div>
+<!-- Primary content: Stuff that goes in the primary content column (by default, the left column) -->
+
+<div id="primarycontainer">
+
+<div id="primarycontent">
+<!-- Primary content area start -->
+
+<div class="post">
+<h4>Data Model</h4>
+
+<div class="contentarea">
+<img src="images/erd.jpeg" class="left" alt="ERD Diagram" /> 
+
+<p>The goal of the project is to create an e-commerce system for the food
+service industry that enables on-line consumers to purchase foods and
+restaurant supplies from a single source. The system will provide the consumer
+with basic point-of-sale functionality while enabling the provider to optimize
+their product offerings based on various product and consumer information.</p>
+
+<p><a href="tables.html">Basic Tables</a></p>
+
+<p><a href="qtables.html">Query Tables</a></p>
+
+<p><a href="keyspace.html">Full Keyspace</a></p>
+
+</div>
+</div>
+
+<div class="divider2">
+</div>
+
+<div class="post">
+<h4>Java Application - Initial Data Load</h4>
+
+<div class="contentarea">
+<p>Most data files were loaded easily using the copy utility, but products
+required more processing. Each row required a loop to read and assign all of
+the values to the attributes collection. Another issue was encountered with
+vendor names. Some vendor names contain commas, which eliminated the use of the
+String.split() function. Instead, a CSV reader class was used to process the
+file.</p>
+<p><a href="perfmon.jsp">tpstats/iostats</a></p>
+</div>
+</div>
+
+<div class="divider2">
+</div>
+
+<div class="post">
+<h4>Java Application - Order Simulation</h4>
+
+<div class="contentarea">
+<p>This process simulates an active web site by reading orders from the
+provided CSV and processing them as if the data was being submitted through a
+web site.</p>
+
+<p>Each order object retrieves additional data about users, accounts, and
+products from C* and writes information to query tables.</p>
+
+<p>For extra credit, the application also updates the balance on the Account
+table. </p>
+
+<p><a href="perfmon.jsp">tpstats/iostats</a></p>
+
+</div>
+</div>
+
+<div class="divider2">
+</div>
+
+<div class="post">
+<h4>Cassandra Queries</h4>
+
+<div class="contentarea">
+<img src="images/c.jpeg" class="left" alt="C*" /> 
+
+<p>Demonstrate queries executing against query tables.</p>
+<p>All performance related best practices should be considered, throughout. Also provide trace information for each.</p>
+
+<p><a href="cassandra.html">Execute Queries</a></p>
+
+</div>
+</div>
+
+<div class="divider2">
+</div>
+
+<a name="hadoop"></a>
+<div class="post">
+<h4>Hadoop</h4>
+
+<div class="contentarea">
+<img src="images/hadoop.png" class="left" alt="C*" /> 
+
+<p>An application of Hadoop in the DataStax Enterprise stack is to gather statistics associated with each product and develop recommendations based on those statistics. </p>
+
+<p><a href="hive_recommendations.html">Hive Recommendations</a></p>
+<p><a href="hive_affinity.html">A Better Hive Recommendation Job</a></p>
+
+
+<p><b>Results</b></p>
+<form action="OrderServlet">
+<input type="hidden" name="action" value="recommendation">
+<b>1)</b> Total number of products for each recommendation.<br>
+<b>2)</b> The product(s) most highly recommended.<br>
+<b>3)</b> The product(s) most highly recommended for each vendor.<br>
+Vendor Name: <input name="vendor" type="text" value="Foodguys">
+<input type="submit" value="Go!" />
+</form>
+
+<p>&nbsp;</p>
+<p><b>Extra Credit</b></p>
+<p><a href="hive_moving_average.html">Hive Moving Average</a></p>
+<form action="OrderServlet">
+<input type="hidden" name="action" value="moving_average">
+Develop a map-reduce job to compute the 10 period moving average of order prices in the order stream.<br>
+<input type="submit" value="Go!" />
+</form>
+
+</div>
+</div>
+
+<div class="divider2">
+</div>
+
+<div class="post">
+<h4>Solr</h4>
+
+<div class="contentarea">
+<img src="images/solr.png" class="left" alt="C*" /> 
+
+<p>An application of Solr in the DataStax Enterprise stack is to perform free-text and faceted searches within data fields.</p>
+
+<p><a href="solr_schema.html">schema.xml</a></p>
+<p><a href="solr_config.html">solrconfig.xml</a></p>
+
+<p>
+Determine the number of occurrences of the letter 's' and the letter 'S' in all street addresses.<br>
+The letter "s/S" is said to be the most commonly occurring letter in the English language. Validate or disprove this in street addresses.<br>
+<a href="http://localhost:8080/WebApp/SolrServlet">Go!</a>
+</p>
+<p><a href="http://172.16.232.131:8983/solr/#/store.user/schema-browser?field=full_address">Schema Browser</a></p>
+
+</div>
+</div>
+
+<div class="divider2">
+</div>
+
+</div>
+</div>
+
+<!-- Secondary content: Stuff that goes in the secondary content column (by default, the narrower right column) -->
+
+<div id="secondarycontent">
+<!-- Secondary content area start -->
+<!-- HINT: Set any div's class to "box" to encapsulate it in (you guessed it) a box -->
+
+<div class="box">
+<h4>About Travis</h4>
+
+<div class="contentarea">
+<img src="images/shatner.jpg" class="left" alt="Travis" /> 
+
+<p>I was once a simple SE, but recently I have transformed into a Java
+programmer. The world will never be the same. I also finally figured out
+Maven.</p>
+</div>
+</div>
+
+<div>
+<h4>My Support Team</h4>
+
+<div class="contentarea">
+<ul class="linklist">
+  <li>Bill Kasinak</li>
+  <li>Iain Finlayson</li>
+  <li>Chuck Droukas</li>
+  <li>Johnny Miller</li>
+  <li>Patrick Callaghan</li>
+  <li>Jonathan Lacefield</li>
+  <li>Jonathan Shook</li>
+  <li>Rob Murphy</li>
+  <li>Wei Deng</li>
+  <li>Michael Nelson</li>
+  <li>Geoff Bernard</li>
+</ul>
+</div>
+</div>
+<!-- Secondary content area end -->
+</div>
+</div>
+
+<div id="footer">
+
+<div class="left">
+© 2013 Travis Price All rights reserved.</div>
+
+<div class="right">
+Travis Price</div>
+</div>
+</div>
+</body>
+</html>
